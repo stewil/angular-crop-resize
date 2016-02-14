@@ -27,6 +27,7 @@
     "gulp-typescript":"~2.11.0",
     "gulp-tslint": "~1.4.4",
     "gulp-filter": "~3.0.1",
+    "gulp-plumber": "^1.0.1",
     "typings":"~0.6.8",
     "run-sequence": "~1.1.5 ",
     "browser-sync": "~2.7.13",

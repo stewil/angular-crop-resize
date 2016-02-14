@@ -2,9 +2,6 @@
 	"compilerOptions": {
 	  	"noImplicitAny":false
 	},
-	"files": [
-	  "./tools/typings/angularjs/angular.d.ts"
-	],
 	"exclude": [
 		"node_modules",
 		"bower_components",

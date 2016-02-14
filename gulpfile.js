@@ -48,13 +48,9 @@ gulp.task("bumpBowerPackage", bumpBowerPackage);
 
 //  TYPESCRIPT
 //-----------------------------------------------------------------------
-gulp.task("ts", compileTSasJS);
-
-//  JAVASCRIPT
-//-----------------------------------------------------------------------
-gulp.task("debugJS",  debugJS);
-gulp.task("buildJS",  buildJS);
-gulp.task('reloadJS', reloadJS);
+gulp.task("debugTS",  debugTS);
+gulp.task("buildTS",  buildTS);
+gulp.task("reloadTS", reloadTS);
 
 //  SASS
 //-----------------------------------------------------------------------
@@ -75,7 +71,6 @@ gulp.task("copyTests",  copyTests);
 gulp.task("copySpecRunner", copySpecRunner);
 gulp.task("compileTestSource", compileTestSource);
 
-
 /*-----------------------------------------------------------------------
     FUNCTIONS
  -----------------------------------------------------------------------*/
@@ -91,7 +86,7 @@ function bundle(dir, taskPrefix){
             ]);
         }
         tasks.push([
-            taskPrefix + 'JS',
+            taskPrefix + 'TS',
             taskPrefix + 'SASS',
             taskPrefix + 'HTML'
         ]);
@@ -124,23 +119,6 @@ function debugHTML(){
 
 function reloadHTML(){
     return runSequence(['debugHTML'], ['reload']);
-}
-
-function compileJS(dir) {
-
-    var jsBundle    = browserify(config.application).bundle(),
-        jsFileName  = createBundleName();
-
-    return jsBundle
-        .pipe(source(config.application))
-        .pipe(streamify(beautify({indentSize:2})))
-        .pipe(streamify(sourcemaps.init()))
-        .pipe(rename(jsFileName + '.js'))
-        .pipe(gulp.dest(dir + 'js/'))
-        .pipe(streamify(uglify()))
-        .pipe(rename(jsFileName + '.min.js'))
-        .pipe(streamify(sourcemaps.write('.')))
-        .pipe(gulp.dest(dir + 'js/'));
 }
 
 function copyTests(){
@@ -187,18 +165,6 @@ function serveTests(){
             return browserSync.reload()
         });
     });
-}
-
-function debugJS(){
-    return compileJS(config.debug);
-}
-
-function buildJS(){
-    return compileJS(config.dist);
-}
-
-function reloadJS(){
-    return runSequence(['debugJS'], ['reload']);
 }
 
 function compileSASS(dir) {
@@ -265,7 +231,7 @@ function serve(){
     }
     gulp.watch(config.scss,      ['reloadSASS']);
     gulp.watch(config.index,     ['reloadHTML']);
-    gulp.watch(config.javascript,['reloadJS']);
+    gulp.watch(config.typescript,['reloadTS']);
 }
 
 function reloadBrowser(){
@@ -288,9 +254,24 @@ function createBundleName(){
     return packageJson.name + '-' + packageJson.version;
 }
 
+function reloadTS(){
+    return runSequence(['debugTS'], ['reload']);
+}
+
+function debugTS(){
+    compileTSasJS(config.debug);
+}
+
+function buildTS(){
+    compileTSasJS(config.dist);
+}
+
 function compileTS(){
 
-    var typeScriptFilter = gulpFilter(config.typescript, {restore: true});
+    var typeScriptFilter = gulpFilter([
+        "**/*.ts",
+        "!" + config.source + "/workers/*"
+    ], {restore: true});
 
     return gulp.src(config.allTypeScriptFiles)
         .pipe(sourcemaps.init())
@@ -299,14 +280,17 @@ function compileTS(){
         .pipe(typeScriptFilter.restore);
 }
 
-function compileTSasJS(){
+function compileTSasJS(dir){
     var jsFileName  = createBundleName();
     return compileTS()
+        .pipe(streamify(beautify({indentSize:2})))
         .pipe(sourcemaps.init())
-        .pipe(concat(jsFileName + '.min.js'))
+        .pipe(concat(jsFileName + '.js'))
+        .pipe(gulp.dest(dir + 'js/'))
         .pipe(uglify())
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.debug(config.debug + 'js/'));
+        .pipe(rename(jsFileName + '.min.js'))
+        .pipe(gulp.dest(dir + 'js/'));
 }
 
 
