@@ -9,7 +9,8 @@ module ngCropResize.App {
         constructor(name:string) {
             AppBuilder.instance = this;
 
-            this.angularModule = angular.module(name, []);
+            this.angularModule = angular.module(name, [
+            ]);
         }
         public start(){
             angular.element(document).ready(()=>{

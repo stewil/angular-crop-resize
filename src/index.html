@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ng-ResizeCrop</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>Crop Resize JS</h1>
+            <p>NgCropResize JS is an angular library for handling image manipulation in browser.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-9">
+            <div class="embed-responsive embed-responsive-16by9" data-drag-drop-target data-cropresize-target>
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="preview">
+                <div data-cr-preview></div>
+            </div>
+            <label class="btn btn-primary upload-btn" for="file-uploader">Upload file</label>
+            <input id="file-uploader" type="file" cr-upload-button/>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+<script src="./js/<%= name %>.js"></script>
+</body>
+</html>
