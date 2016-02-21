@@ -10,6 +10,8 @@ module ngCropResize.App {
             AppBuilder.instance = this;
 
             this.angularModule = angular.module(name, [
+                "ngCropResize.crUtils",
+                "ngCropResize.crUploadButton"
             ]);
         }
         public start(){
