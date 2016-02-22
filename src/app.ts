@@ -1,4 +1,4 @@
-module ngCropResize.App {
+module ngCropResize {
     "use strict";
 
     export class AppBuilder {
@@ -11,6 +11,7 @@ module ngCropResize.App {
 
             this.angularModule = angular.module(name, [
                 "ngCropResize.crUtils",
+                "ngCropResize.crCropData",
                 "ngCropResize.crUploadButton"
             ]);
         }
@@ -21,5 +22,5 @@ module ngCropResize.App {
         }
     }
 
-    new ngCropResize.App.AppBuilder('ngCropResize').start();
+    new ngCropResize.AppBuilder('ngCropResize').start();
 }
