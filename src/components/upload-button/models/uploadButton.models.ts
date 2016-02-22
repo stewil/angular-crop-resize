@@ -3,6 +3,7 @@
  */
 module ngCropResize.crUploadButton.models{
     export interface ICrUploadButtonScope extends angular.IScope{
-
+        id    : string
+        crSrc : string
     }
 }

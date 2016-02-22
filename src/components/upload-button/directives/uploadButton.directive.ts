@@ -4,30 +4,55 @@
 module ngCropResize.uploadButton.directives {
     "use strict";
 
+    import IUtilsService        = ngCropResize.utils.models.IUtilsService;
+    import ICropDataService     = ngCropResize.cropData.models.ICropDataService;
+    import ICrUploadButtonScope = ngCropResize.crUploadButton.models.ICrUploadButtonScope
+
     export class UploadButton implements angular.IDirective {
 
         public restrict     : string = "EA";
         public controller   : string = "";
         public controllerAs : string = "";
         public templateUrl  : string = "";
-        public scope        : any = {};
+        public scope        : any = {
+            id      :"@?",
+            crSrc   :"@?"
+        };
 
         public static Factory(){
-            var directive = ()=>new UploadButton();
-            directive.$inject = [];
+            var directive = (crUtils           : IUtilsService,
+                             crCropDataService : ICropDataService)=>
+                new UploadButton(crUtils, crCropDataService);
+            directive.$inject = ["crUtils", "crCropDataService"];
             return directive;
         }
 
-        constructor(){}
+        constructor(private crUtils           : IUtilsService,
+                    private crCropDataService : ICropDataService){}
 
-        link = ($scope   : angular.IScope,
+        link = ($scope   : ICrUploadButtonScope,
                 $element : angular.IAugmentedJQuery,
                 $attrs   : angular.IAttributes)=>{
 
-            $element.on("change", onChange);
+            var directive = this,
+                srcKey    = $scope.crSrc || $scope.id;
 
-            function onChange(e){ }
+            if(srcKey){
+                $element.on("change", onFileInputChange);
+            }else{
+                console.warn("'crUploadButton' not initialized with required 'id' or 'crSrc' attribute. \n" + $element + "\nwill have no functionality");
+            }
+
+            function onFileInputChange(e){
+                var files       = this.files;
+                for(var file in this.files){
+                    if(files[file] instanceof Blob){
+                        directive.crUtils.fileToBase64(files[file]).then((data)=>{
+                            directive.crCropDataService.addModel(srcKey, data.info, data.data);
+                        });
+                    }
+                }
+            }
         };
-
     }
 }
