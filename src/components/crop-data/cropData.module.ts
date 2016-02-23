@@ -4,5 +4,5 @@
 /// <reference path="./services/crop-data.service.ts" />
 module ngCropResize.cropData {
     angular.module("ngCropResize.crCropData", [])
-        .service("crCropDataService", services.CropDataService);
+        .service("crCropData", services.CropDataService);
 }

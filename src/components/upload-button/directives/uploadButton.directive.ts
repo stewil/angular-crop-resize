@@ -20,15 +20,15 @@ module ngCropResize.uploadButton.directives {
         };
 
         public static Factory(){
-            var directive = (crUtils           : IUtilsService,
-                             crCropDataService : ICropDataService)=>
-                new UploadButton(crUtils, crCropDataService);
-            directive.$inject = ["crUtils", "crCropDataService"];
+            var directive = (crUtils    : IUtilsService,
+                             crCropData : ICropDataService)=>
+                new UploadButton(crUtils, crCropData);
+            directive.$inject = ["crUtils", "crCropData"];
             return directive;
         }
 
-        constructor(private crUtils           : IUtilsService,
-                    private crCropDataService : ICropDataService){}
+        constructor(private crUtils    : IUtilsService,
+                    private crCropData : ICropDataService){}
 
         link = ($scope   : ICrUploadButtonScope,
                 $element : angular.IAugmentedJQuery,
@@ -48,7 +48,7 @@ module ngCropResize.uploadButton.directives {
                 for(var file in this.files){
                     if(files[file] instanceof Blob){
                         directive.crUtils.fileToBase64(files[file]).then((data)=>{
-                            directive.crCropDataService.addModel(srcKey, data.info, data.data);
+                            directive.crCropData.addModel(srcKey, data.info, data.data);
                         });
                     }
                 }

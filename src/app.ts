@@ -12,6 +12,7 @@ module ngCropResize {
             this.angularModule = angular.module(name, [
                 "ngCropResize.crUtils",
                 "ngCropResize.crCropData",
+                "ngCropResize.crCropArea",
                 "ngCropResize.crUploadButton"
             ]);
         }

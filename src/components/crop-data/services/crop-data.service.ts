@@ -8,17 +8,22 @@ module ngCropResize.cropData.services {
 
     export class CropDataService implements ICropDataService{
 
-        public croppedImageInfo  : any = {};
-        private croppedImageData : any = {};
+        public croppedImageInfo : any = {};
+        public croppedImageData : any = {};
 
-        public static $inject = ["$rootScope"];
+        public static $inject = ["$rootScope", "$timeout"];
 
-        constructor(private $rootScope:angular.IRootScopeService){
+        constructor(private $rootScope : angular.IRootScopeService,
+                    private $timeout   : angular.ITimeoutService){
         }
 
         public addModel = (key:string, info:any, data:any) =>{
-            this.croppedImageData[key] = data;
-            this.croppedImageInfo[key] = info;
+            this.$timeout(()=>{
+                this.$rootScope.$apply(()=>{
+                    this.croppedImageData[key] = data;
+                    this.croppedImageInfo[key] = info;
+                });
+            });
         };
 
         public getModel = () =>{};
