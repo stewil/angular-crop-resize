@@ -11,7 +11,8 @@ module ngCropResize.cropWindow.directives {
         public restrict     : string = "EA";
         public controller   : string = "crCropWindowCtrl";
         public controllerAs : string = "cropWindowVM";
-        public scope        : any = {};
+        public templateUrl  : string = "./views/cr-crop-window.template.html";
+        public scope        : any    = {};
 
         public static Factory() {
             var directive = ($rootScope:angular.IRootScopeService) =>

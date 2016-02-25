@@ -44,8 +44,8 @@ var GulpConfig = (function () {
             this.assets + '**/*.jpeg'
         ];
 
-        this.html = [
-            this.source + "**/*.html",
+        this.templates = [
+            this.source + "**/*.template.html",
             "!" + this.source + "index.html"
         ];
 

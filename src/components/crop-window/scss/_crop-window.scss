@@ -1,0 +1,109 @@
+@import "../../../base/scss/settings";
+
+.cr-crop-window,
+cr-crop-window,
+[cr-crop-window]{
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border: $crop-window-border-width dashed $color;
+  cursor: move;
+  top: 50%;
+  left: 50%;
+  margin: -100px 0 0 -100px;
+
+  .cr-crop-handle{
+    width: $handle-size;
+    height: $handle-size;
+    position: absolute;
+    border:1px solid $color;
+
+    &:hover{
+      transform: scale(1.1);
+    }
+
+    &[class*=top]{
+      top: -1px;
+    }
+    &[class*=middle]{
+      top: 50%;
+      margin-top: -($handle-size/2);
+    }
+    &[class*=bottom]{
+      bottom: -1px;
+    }
+    &[class*=center]{
+      left: 50%;
+    }
+    &[class*=right]{
+      right: -1px;
+    }
+    &[class*=left]{
+      left: -1px;
+    }
+
+    &[class*=top-left]{
+      cursor: nw-resize;
+    }
+
+    &[class*=top-center]{
+      cursor: n-resize;
+    }
+
+    &[class*=top-right]{
+      cursor: ne-resize;
+    }
+
+    &[class*=right-middle]{
+      cursor: e-resize;
+    }
+
+    &[class*=bottom-right]{
+      cursor: se-resize;
+    }
+
+    &[class*=bottom-center]{
+      cursor: s-resize;
+    }
+
+    &[class*=bottom-left]{
+      cursor: sw-resize;
+    }
+
+    &[class*=left-middle]{
+      cursor: w-resize;
+    }
+
+    &.cr-center-point{
+      border: none;
+      display:none;
+      &::before,
+      &::after{
+        content: "";
+        background-color: $color;
+        position: absolute;
+      }
+
+      &::before{
+        height: $crop-window-border-width;
+        width: $handle-size * 2;
+        top:50%;
+        margin-left: -($handle-size / 2);
+      }
+
+      &::after{
+        height: $handle-size * 2;
+        width: $crop-window-border-width;
+        left: 50%;
+        margin-top: -($handle-size / 2);
+      }
+
+      width: $handle-size;
+      height: $handle-size;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+    }
+  }
+}

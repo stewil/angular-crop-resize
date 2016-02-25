@@ -62,7 +62,9 @@ gulp.task('reloadSASS', reloadSASS);
 //-----------------------------------------------------------------------
 gulp.task("debugHTML",  debugHTML);
 gulp.task("buildHTML",  buildHTML);
-gulp.task('reloadHTML', reloadHTML);
+gulp.task("reloadHTML", reloadHTML);
+gulp.task("debugTemplates",  debugTemplates);
+gulp.task("buildTemplates",  buildTemplates);
 
 //  TESTS
 //-----------------------------------------------------------------------
@@ -88,7 +90,8 @@ function bundle(dir, taskPrefix){
         tasks.push([
             taskPrefix + 'TS',
             taskPrefix + 'SASS',
-            taskPrefix + 'HTML'
+            taskPrefix + 'HTML',
+            taskPrefix + 'Templates'
         ]);
 
         return runSequence.apply(null, tasks);
@@ -117,8 +120,25 @@ function debugHTML(){
     return createHtml(config.debug);
 }
 
+function buildTemplates(){
+    return copyTemplates(config.dist);
+}
+
+function debugTemplates(){
+    return copyTemplates(config.debug);
+}
+
+function copyTemplates(dist){
+    console.log(config.templates);
+    return gulp.src(config.templates)
+        .pipe(rename(function(path){
+            path.dirname = "./views/"
+        }))
+        .pipe(gulp.dest(dist))
+}
+
 function reloadHTML(){
-    return runSequence(['debugHTML'], ['reload']);
+    return runSequence(['debugHTML', 'debugTemplates'], ['reload']);
 }
 
 function copyTests(){
@@ -255,7 +275,7 @@ function createBundleName(){
 }
 
 function reloadTS(){
-    return runSequence(['debugTS'], ['reload']);
+    return runSequence('debugTS', 'reload');
 }
 
 function debugTS(){
