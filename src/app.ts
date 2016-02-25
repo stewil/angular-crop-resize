@@ -13,6 +13,8 @@ module ngCropResize {
                 "ngCropResize.crUtils",
                 "ngCropResize.crCropData",
                 "ngCropResize.crCropArea",
+                "ngCropResize.crDragArea",
+                "ngCropResize.crCropWindow",
                 "ngCropResize.crUploadButton"
             ]);
         }
