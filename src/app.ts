@@ -14,6 +14,7 @@ module ngCropResize {
                 "ngCropResize.crCropData",
                 "ngCropResize.crCropArea",
                 "ngCropResize.crDragArea",
+                "ngCropResize.mouseEvents",
                 "ngCropResize.crCropWindow",
                 "ngCropResize.crUploadButton"
             ]);
