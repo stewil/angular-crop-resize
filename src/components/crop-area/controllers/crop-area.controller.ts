@@ -12,9 +12,13 @@ module ngCropResize.cropArea.controllers {
 
         private cachedModel : any;
         private $image      : angular.IAugmentedJQuery = angular.element('<img/>');
+        private $cropWindow : angular.IAugmentedJQuery = angular.element('<div cr-crop-window></div>');
 
-        static $inject = ["$scope", "crCropData", "crCropAreaService"];
+        static $inject = ["$scope", "$element", "$compile", "$rootScope", "crCropData", "crCropAreaService"];
         constructor(private $scope            : ICropAreaScope,
+                    private $element          : angular.IAugmentedJQuery,
+                    private $compile          : angular.ICompileService,
+                    private $rootScope        : angular.IRootScopeService,
                     private crCropData        : ICropDataService,
                     private crCropAreaService : ICropAreaService){
 
@@ -36,6 +40,12 @@ module ngCropResize.cropArea.controllers {
 
             measurements.asArray.unshift(this.$image[0]);
             context.drawImage.apply(context, measurements.asArray);
+            this.buildWindow();
+        };
+
+        private buildWindow = () =>{
+            this.$compile(this.$cropWindow)(this.$rootScope.$new());
+            this.$element.append(this.$cropWindow);
         };
 
         private onCropDataChange = () =>{
@@ -45,7 +55,7 @@ module ngCropResize.cropArea.controllers {
 
             if(crSrc && imgInfo[crSrc] && (imgInfo[crSrc] !== this.cachedModel)){
                 this.cachedModel   = imgInfo[crSrc];
-                this.$image[0].src = imgData[crSrc].dataURL;
+                this.$image.attr('src', imgData[crSrc].dataURL);
             }
         }
     }

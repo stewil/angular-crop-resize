@@ -28,7 +28,10 @@ module ngCropResize.cropArea.directives {
                 $element : angular.IAugmentedJQuery,
                 $attrs   : angular.IAttributes)=>{
 
-            $scope.$canvas    = createCanvas();
+            $scope.$canvas           = createCanvas();
+            //TODO: Hook this up to a resize event
+            $scope.$canvas[0].width  = $scope.$canvas[0].offsetWidth;
+            $scope.$canvas[0].height = $scope.$canvas[0].offsetHeight;
 
             function createCanvas(){
                 var $newCanvas;

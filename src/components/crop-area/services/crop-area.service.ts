@@ -31,6 +31,7 @@ module ngCropResize.cropArea.services {
                     dWidth  : imageWidth * ratio,
                     dHeight : imageHeight * ratio
                 };
+
             return {
                 asObject : paramsAsObject,
                 asArray  : Object.keys(paramsAsObject).map(function (key) {

@@ -1,6 +1,8 @@
 .cr-crop-area,
 [cr-crop-area],
 cr-crop-area{
+  border: 1px dashed rgba(0,0,0,0.4);
+  background-color: rgba(0,0,0,0.1);
   canvas{
     position: absolute;
     width: 100%;
