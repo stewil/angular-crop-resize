@@ -4,12 +4,16 @@
 module ngCropResize.dragDrop.controllers {
     "use strict";
 
-    import IDragDropScope = ngCropResize.dragDrop.models.IDragDropScope;
+    import IDragDropScope   = ngCropResize.dragDrop.models.IDragDropScope;
+    import IUtilsService    = ngCropResize.utils.models.IUtilsService;
+    import ICropDataService = ngCropResize.cropData.models.ICropDataService;
 
     export class DragAreaController{
-        static $inject = ["$scope", "$element"];
-        constructor(private $scope   : IDragDropScope,
-                    private $element : angular.IAugmentedJQuery){
+        static $inject = ["$scope", "$element", "crUtils", "crCropData"];
+        constructor(private $scope     : IDragDropScope,
+                    private $element   : angular.IAugmentedJQuery,
+                    private crUtils    : IUtilsService,
+                    private crCropData : ICropDataService){
             $element.on('drop',      this.onDrop);
             $element.on('dragover',  this.onDragOver);
             $element.on('dragleave', this.onDragEnter);
@@ -18,9 +22,11 @@ module ngCropResize.dragDrop.controllers {
 
         private onDrop = (e) =>{
             e.preventDefault();
-            var data             = e.dataTransfer.files;
-            if(data[0] instanceof Blob){
-
+            var files = e.dataTransfer.files;
+            if(files[0] instanceof Blob){
+                this.crUtils.fileToBase64(files[0]).then((data)=>{
+                    this.crCropData.addModel(this.$scope.crSrc, data.info, data.data);
+                });
             }
         };
 
@@ -30,11 +36,11 @@ module ngCropResize.dragDrop.controllers {
         };
 
         private onDragEnter = () =>{
-
+            this.$element.addClass("cr-drag-over");
         };
 
         private onDragLeave = () =>{
-
+            this.$element.removeClass("cr-drag-over");
         };
     }
 }

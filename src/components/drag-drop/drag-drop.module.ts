@@ -7,6 +7,6 @@
 module ngCropResize.dragDrop {
     angular.module("ngCropResize.crDragArea", [])
     .controller("crDragAreaCtrl", controllers.DragAreaController)
-    .directive("crDragArea",      directives.DragAreaDirective.Factory())
+    .directive("crDropArea",      directives.DragAreaDirective.Factory())
     .service("crDragAreaService", services.DragDropService);
 }

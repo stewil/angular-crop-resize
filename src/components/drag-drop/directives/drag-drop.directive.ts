@@ -11,23 +11,31 @@ module ngCropResize.dragDrop.directives {
         public restrict     : string = "EA";
         public controller   : string = "crDragAreaCtrl";
         public controllerAs : string = "crDragAreaVM";
-        public scope        : any = {
-            crSrc : "@?"
-        };
 
         public static Factory(){
-            var directive = ($rootScope : angular.IRootScopeService) =>
-                new DragAreaDirective($rootScope);
+            var directive = ($rootScope : angular.IRootScopeService,
+                             $timeout   : angular.ITimeoutService) =>
+                new DragAreaDirective($rootScope, $timeout);
 
-            directive.$inject = ["$rootScope"];
+            directive.$inject = ["$rootScope", "$timeout"];
             return directive;
         }
 
-        constructor(private $rootScope : angular.IRootScopeService){}
+        constructor(private $rootScope : angular.IRootScopeService,
+                    private $timeout   : angular.ITimeoutService){}
 
         link = ($scope   : IDragDropScope,
                 $element : angular.IAugmentedJQuery,
                 $attrs   : angular.IAttributes)=>{
+            $scope.$watch(()=>{
+                return $attrs['crSrc'];
+            },(newValue)=>{
+                this.$timeout(()=>{
+                    $scope.$apply(()=>{
+                        $scope.crSrc = newValue;
+                    });
+                })
+            }, true);
         };
     }
 }
