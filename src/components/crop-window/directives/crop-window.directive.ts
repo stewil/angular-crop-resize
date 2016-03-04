@@ -12,7 +12,6 @@ module ngCropResize.cropWindow.directives {
         public controller   : string = "crCropWindowCtrl";
         public controllerAs : string = "cropWindowVM";
         public templateUrl  : string = "./views/cr-crop-window.template.html";
-        public scope        : any    = {};
 
         public static Factory() {
             var directive = ($rootScope:angular.IRootScopeService) =>
@@ -28,6 +27,10 @@ module ngCropResize.cropWindow.directives {
         link = ($scope   : ICropWindowScope,
                 $element : angular.IAugmentedJQuery,
                 $attrs   : angular.IAttributes)=> {
+            $element.attr('cr-src', $scope.crSrc);
+            [].forEach.call($element[0].querySelectorAll("*"), (child, index)=>{
+                child.setAttribute('cr-src', $scope.crSrc);
+            })
         };
     }
 }

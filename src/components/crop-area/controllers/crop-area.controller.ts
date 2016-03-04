@@ -44,7 +44,9 @@ module ngCropResize.cropArea.controllers {
         };
 
         private buildWindow = () =>{
-            this.$compile(this.$cropWindow)(this.$rootScope.$new());
+            var $cropWindowScope = this.$rootScope.$new();
+            $cropWindowScope['crSrc'] = this.$scope.crSrc;
+            this.$compile(this.$cropWindow)($cropWindowScope);
             this.$element.append(this.$cropWindow);
         };
 

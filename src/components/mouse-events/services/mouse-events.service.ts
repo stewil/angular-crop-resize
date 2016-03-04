@@ -58,7 +58,7 @@ module ngCropResize.mouseEvents.services {
         private onMove = (e) =>{
             if(this.isHeld){
                 this.updateMouseMoveData(e);
-                this.$rootScope.$broadcast("crMouseUp", this.mouseMoveData);
+                this.$rootScope.$broadcast("crMouseMove", this.mouseMoveData);
             }
         };
 

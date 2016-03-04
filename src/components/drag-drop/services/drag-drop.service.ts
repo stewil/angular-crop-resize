@@ -11,7 +11,6 @@ module ngCropResize.dragDrop.services {
         public static $inject = ["$rootScope"];
 
         constructor(private $rootScope:angular.IRootScopeService){
-            console.log("Drag drop service");
         }
     }
 }
