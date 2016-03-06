@@ -11,6 +11,7 @@ module ngCropResize {
 
             this.angularModule = angular.module(name, [
                 "ngCropResize.crUtils",
+                "ngCropResize.preview",
                 "ngCropResize.crCropData",
                 "ngCropResize.crCropArea",
                 "ngCropResize.crDragArea",
