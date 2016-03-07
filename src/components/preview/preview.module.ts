@@ -3,5 +3,7 @@
  */
 module ngCropResize.preview {
 
-    angular.module("ngCropResize.preview", []):
+    angular.module("ngCropResize.preview", [])
+        .controller("crPreviewCtrl", controllers.preview)
+        .directive("crPreview", directives.preview);
 }
