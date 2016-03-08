@@ -11,6 +11,9 @@
         public restrict     : string = "EA";
         public controller   : string = "crPreviewCtrl";
         public controllerAs : string = "crPreviewVM";
+        public scope        : any = {
+            crSrc:"="
+        };
 
         public static Factory(){
             var directive = ($rootScope : angular.IRootScopeService) =>

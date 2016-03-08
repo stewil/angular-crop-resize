@@ -3,6 +3,6 @@
  */
 module ngCropResize.preview.models{
 	export IPreviewScope extends angular.IScope{
-
+		crSrc:string
 	}
 }
