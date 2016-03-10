@@ -9,11 +9,6 @@ module ngCropResize.preview.controllers {
     export class PreviewController{
         static $inject = ["$scope"];
         constructor(private $scope : IPreviewScope){
-			$scope.$watch('crSrc', this.onSourceCropped, true);
         }
-
-        private onSourceCropped = (newValue:string, oldValue:string) => {
-
-        };
     }
 }
